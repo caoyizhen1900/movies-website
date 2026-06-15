@@ -1,4 +1,5 @@
-import moviesData from "@/movies.json";
+import { readFileSync } from "fs";
+import { join } from "path";
 
 export interface MovieDirector {
   name: string;
@@ -16,8 +17,18 @@ export interface Movie {
   summary: string;
 }
 
+interface MoviesData {
+  movies: Movie[];
+}
+
+function readMoviesData(): MoviesData {
+  const filePath = join(process.cwd(), "movies.json");
+  const raw = readFileSync(filePath, "utf-8");
+  return JSON.parse(raw) as MoviesData;
+}
+
 export function getAllMovies(): Movie[] {
-  return moviesData.movies;
+  return readMoviesData().movies;
 }
 
 export function getMovieByIndex(index: number): Movie | null {

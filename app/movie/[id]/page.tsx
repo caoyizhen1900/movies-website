@@ -1,11 +1,8 @@
-import { getMovieByIndex, getAllMovies } from "@/lib/movies";
+import { getMovieByIndex } from "@/lib/movies";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 
-export function generateStaticParams() {
-  const movies = getAllMovies();
-  return movies.map((_, i) => ({ id: String(i) }));
-}
+export const dynamic = "force-dynamic";
 
 export default async function MovieDetailPage({
   params,
